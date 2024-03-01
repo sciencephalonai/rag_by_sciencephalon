@@ -13,8 +13,6 @@ from langchain_community.callbacks import get_openai_callback
 
 openai_api_key = st.secrets.openai_secret_key.openai_api_key
 
-# os.environ['OPENAI_API_KEY'] = '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'
-
 def main():
     st.set_page_config(page_title="RAG App by SciEncephalon AI", page_icon="📚") 
     st.image('website_logo.png', width=400)

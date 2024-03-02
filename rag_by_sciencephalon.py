@@ -4,14 +4,14 @@ from langchain_openai import OpenAIEmbeddings
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.vectorstores import FAISS
 # from pathlib import Path
-# import os
+import os
 import streamlit as st
 from langchain_community.chat_message_histories import StreamlitChatMessageHistory
 from langchain.chains.question_answering import load_qa_chain
 from langchain.llms import OpenAI
 from langchain_community.callbacks import get_openai_callback
 
-openai_api_key = st.secrets.openai_secret_key.openai_api_key
+os.environ['OPENAI_API_KEY'] = st.secrets.openai_secret_key.openai_api_key
 
 def main():
     st.set_page_config(page_title="RAG App by SciEncephalon AI", page_icon="📚") 
@@ -35,7 +35,7 @@ def main():
 
     if query:
         docs = new_db.similarity_search(query)
-        chain = load_qa_chain(OpenAI(openai_api_key=openai_api_key, temperature=0), chain_type = 'stuff')
+        chain = load_qa_chain(OpenAI(temperature=0), chain_type = 'stuff')
         with get_openai_callback() as cb:
             response = chain.run(input_documents = docs, question=query)
         with st.chat_message("user"):

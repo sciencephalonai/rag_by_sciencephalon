@@ -1,3 +1,4 @@
+python==3.9
 openai
 langchain_openai==0.0.6
 langchain==0.1.7
